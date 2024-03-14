@@ -45,57 +45,49 @@ users = {
 separator = "-" * 40 
 
 # main part of the program
-while True:
-    username = input("Enter your username: ")
-    password = input("Enter your password: ")
+username = input("Enter your username: ")
+password = input("Enter your password: ")
         
-    if username in users and users[username] == password:
-        print(separator)
-        print(f"Welcome to the app, {username}")    
-        print(f"We have {len(texts)} texts to by analyzed.")
-        print(separator)
+if username in users and users[username] == password:
+    print(separator)
+    print(f"Welcome to the app, {username}")    
+    print(f"We have {len(texts)} texts to by analyzed.")
+    print(separator)
         
-        while True:  # Repeat until the user enters the correct text number
-            try:
-                selection = int(input("Enter a number btw. 1 and 3 to select: "))  # Choose a text number
-                if selection < 1 or selection > len(texts):
-                    raise ValueError("Invalid input")
-
-                text_to_analyze = texts[selection - 1]  # Selecting text for analysis
-                words = text_to_analyze.split()  # Splitting text into words
-                word_lengths = [len(word.strip(".,?!")) for word in words]  # List of word lengths
-                word_length_counts = {}  # Dictionary for storing word lengths and the number of their occurrences
+    while True:  # Repeat until the user enters the correct text number
+        selection = int(input("Enter a number btw. 1 and 3 to select: "))  # Choose a text number
+        if selection < 1 or selection > len(texts):
+            print("Invalid input.")
+        else:
+            text_to_analyze = texts[selection - 1]  # Selecting text for analysis
+            words = text_to_analyze.split()  # Splitting text into words
+            word_lengths = [len(word.strip(".,?!")) for word in words]  # List of word lengths
+            word_length_counts = {}  # Dictionary for storing word lengths and the number of their occurrences
                 
-                # Filling the dictionary with word lengths and their occurrences
-                for length in word_lengths:
-                    if length in word_length_counts:
-                        word_length_counts[length] += 1
-                    else:
-                        word_length_counts[length] = 1
+            # Filling the dictionary with word lengths and their occurrences
+            for length in word_lengths:
+                if length in word_length_counts:
+                    word_length_counts[length] += 1
+                else:
+                    word_length_counts[length] = 1  
 
-                # Analysis results
-                print(separator)
-                print(f"There are {len(words)} words in the selected text.")
-                print(f"There are {len([word for word in words if word.istitle()])} titlecase words.")
-                print(f"There are {len([word for word in words if word.isupper()])} uppercase words.")
-                print(f"There are {len([word for word in words if word.islower()])} lowercase words.")
-                print(f"There are {len([word for word in words if word.isdigit()])} numeric strings.")
-                print(f"The sum of all the numbers {sum(int(word) for word in words if word.isdigit())}")
-                print("----------------------------------------")
+            # Analysis results
+            print(separator)
+            print(f"There are {len(words)} words in the selected text.")
+            print(f"There are {len([word for word in words if word.istitle()])} titlecase words.")
+            print(f"There are {len([word for word in words if word.isupper()])} uppercase words.")
+            print(f"There are {len([word for word in words if word.islower()])} lowercase words.")
+            print(f"There are {len([word for word in words if word.isdigit()])} numeric strings.")
+            print(f"The sum of all the numbers {sum(int(word) for word in words if word.isdigit())}")
+            print("----------------------------------------")
 
-                # Bar chart
-                print("LEN|  OCCURENCES  |NR.")
-                print(separator)
-                for length, count in sorted(word_length_counts.items()):
-                    print(f"{length:3}|{'*' * count:14}|{count}")
+            # Bar chart
+            print("LEN|  OCCURENCES  |NR.")
+            print(separator)
+            for length, count in sorted(word_length_counts.items()):
+                print(f"{length:3}|{'*' * count:14}|{count}")
 
-                break  # End of loop for text selection
-
-            except ValueError:
-                print("Invalid input. Please enter a number between 1 and 3.")
-
-        break  # End of user login loop
-
-    else:
-        print("unregistered user, terminating the program..")  # If the user is not registered, exit the program
-        break  # End of main user login loop
+            break  # End of loop for text selection
+else:
+    print("Unregistered user, terminating the program..")  # If the user is not registered, exit the program
+    
